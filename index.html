@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>ครบรอบ 3 เดือน ❤️</title>
+  <title>❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4);display:flex;justify-content:center;align-items:center;height:100vh}
@@ -32,15 +32,15 @@
 
   <div class="card">
     <div class="heart">❤️</div>
-    <h1>ครบรอบ 3 เดือน</h1>
-    <p>ขอบคุณที่เข้ามาเป็นความสบายใจของเรา<br>ทุกวันที่มีเธอมันพิเศษเสมอ 💕</p>
-    <button id="openBtn" type="button" class="surprise-btn">กดดูเซอร์ไพรส์ 💝</button>
-    <div class="footer">Happy 3 Months Anniversary</div>
+    <h1>Hi 3 Months</h1>
+    <p>Thank for your love<br>Luv U</p>
+    <button id="openBtn" type="button" class="surprise-btn">กดปุ่ม</button>
+    <div class="footer">Happy 3 Months</div>
   </div>
 
   <div id="overlay" class="overlay">
     <div class="keypad">
-      <div id="display" class="display">••••</div>
+      <div id="display" class="display">****</div>
       <div class="keys">
         <button type="button" data-num="1">1</button>
         <button type="button" data-num="2">2</button>
@@ -60,7 +60,7 @@
 
   <script>
     // ===== CONFIG =====
-    const correctPassword = '0909'; // เปลี่ยนรหัสตรงนี้
+    const correctPassword = '2910'; // เปลี่ยนรหัสตรงนี้
     const targetPage = 'surprise.html'; // ต้องมีไฟล์นี้อยู่จริง
 
     // ===== STATE =====
@@ -96,7 +96,7 @@
       if (inputCode === correctPassword) {
         window.location.href = targetPage;
       } else {
-        alert('รหัสไม่ถูกนะ ลองใหม่อีกครั้ง 🥺');
+        alert('เธอลืมรหัสได้ไง!!');
         inputCode = '';
         updateDisplay();
       }
