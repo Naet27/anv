@@ -168,7 +168,8 @@ body {
 </div>
 
 <!-- Page flip sound -->
-<audio id="pageSound" src="page.mp3" preload="auto"></audio>
+<audio id="pageSound" src="sound/page.wav" preload="auto"></audio>
+
 
 <script>
 const pages = document.querySelectorAll('.page');
@@ -185,6 +186,7 @@ document.getElementById('book').addEventListener('click', () => {
   if (current < pages.length) {
 
     sound.currentTime = 0;
+    sound.volume = 0.5;
     sound.play().catch(() => {});
 
     pages[current].classList.add('flipped');
@@ -193,6 +195,7 @@ document.getElementById('book').addEventListener('click', () => {
   }
 });
 </script>
+
 
 </body>
 </html>
