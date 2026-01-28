@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ครบรอบ 3 เดือน ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4);display:flex;justify-content:center;align-items:center;height:100vh}
+    .card{background:#fff;border-radius:24px;padding:36px;width:360px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+    h1{color:#ff5e78;margin-bottom:6px}
+    p{color:#555;line-height:1.7}
+    .heart{font-size:46px;animation:beat 1.4s infinite}
+    @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+
+    .surprise-btn{margin-top:22px;padding:14px 28px;border:none;border-radius:999px;background:linear-gradient(135deg,#ff758c,#ff9a9e);color:#fff;font-size:16px;cursor:pointer;box-shadow:0 8px 20px rgba(255,94,120,.45)}
+    .surprise-btn:active{transform:scale(.96)}
+
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:.35s}
+    .overlay.show{opacity:1;pointer-events:auto}
+    .keypad{background:#fff;border-radius:24px;padding:22px;width:260px;text-align:center;transform:translateY(40px) scale(.9);transition:.35s}
+    .overlay.show .keypad{transform:none}
+
+    .display{background:#fff0f3;padding:12px;border-radius:14px;font-size:22px;letter-spacing:8px;margin-bottom:14px}
+    .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .keys button{padding:14px 0;font-size:18px;border:none;border-radius:14px;background:#ffd1da;cursor:pointer}
+    .keys button:active{transform:scale(.9)}
+
+    .footer{margin-top:18px;font-size:13px;color:#aaa}
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="heart">❤️</div>
+    <h1>ครบรอบ 3 เดือน</h1>
+    <p>ขอบคุณที่เข้ามาเป็นความสบายใจของเรา<br>ทุกวันที่มีเธอมันพิเศษเสมอ 💕</p>
+    <button id="openBtn" type="button" class="surprise-btn">กดดูเซอร์ไพรส์ 💝</button>
+    <div class="footer">Happy 3 Months Anniversary</div>
+  </div>
+
+  <div id="overlay" class="overlay">
+    <div class="keypad">
+      <div id="display" class="display">••••</div>
+      <div class="keys">
+        <button type="button" data-num="1">1</button>
+        <button type="button" data-num="2">2</button>
+        <button type="button" data-num="3">3</button>
+        <button type="button" data-num="4">4</button>
+        <button type="button" data-num="5">5</button>
+        <button type="button" data-num="6">6</button>
+        <button type="button" data-num="7">7</button>
+        <button type="button" data-num="8">8</button>
+        <button type="button" data-num="9">9</button>
+        <button type="button" id="clear">⌫</button>
+        <button type="button" data-num="0">0</button>
+        <button type="button" id="ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const correctPassword = '0909'; // เปลี่ยนรหัสตรงนี้
+    const targetPage = 'surprise.html'; // ต้องมีไฟล์นี้อยู่จริง
+
+    // ===== STATE =====
+    let inputCode = '';
+
+    // ===== ELEMENTS =====
+    const overlay = document.getElementById('overlay');
+    const display = document.getElementById('display');
+
+    // ===== OPEN =====
+    document.getElementById('openBtn').addEventListener('click', () => {
+      overlay.classList.add('show');
+      inputCode = '';
+      updateDisplay();
+    });
+
+    // ===== KEYS =====
+    document.querySelectorAll('[data-num]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (inputCode.length < 4) {
+          inputCode += btn.dataset.num;
+          updateDisplay();
+        }
+      });
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+      inputCode = inputCode.slice(0, -1);
+      updateDisplay();
+    });
+
+    document.getElementById('ok').addEventListener('click', () => {
+      if (inputCode === correctPassword) {
+        window.location.href = targetPage;
+      } else {
+        alert('รหัสไม่ถูกนะ ลองใหม่อีกครั้ง 🥺');
+        inputCode = '';
+        updateDisplay();
+      }
+    });
+
+    // ===== HELPERS =====
+    function updateDisplay(){
+      display.textContent = '•'.repeat(inputCode.length || 4);
+    }
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.classList.remove('show');
+    });
+  </script>
+</body>
+</html>
