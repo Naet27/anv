@@ -20,24 +20,21 @@ body {
   overflow: hidden;
 }
 
-/* ---------- Book ---------- */
+/* ===== Book ===== */
 .book {
-  width: 90vw;
-  max-width: 360px;
-  height: 70vh;
-  max-height: 520px;
-  perspective: 2000px;
+  width: min(320px, 88vw);
+  height: min(480px, 75vh);
+  perspective: 2200px;
   position: relative;
 }
 
-/* ---------- Page (paper) ---------- */
+/* ===== Page ===== */
 .page {
-  width: 100%;
-  height: 100%;
   position: absolute;
+  inset: 0;
   transform-style: preserve-3d;
   transform-origin: left center;
-  transition: transform 1.1s cubic-bezier(.25,.8,.25,1);
+  transition: transform 1s cubic-bezier(.4,0,.2,1);
   border-radius: 18px;
 }
 
@@ -49,7 +46,7 @@ body {
   overflow: hidden;
   border-radius: 18px;
   background: #fff;
-  box-shadow: 0 18px 35px rgba(0,0,0,.18);
+  box-shadow: 0 16px 32px rgba(0,0,0,.18);
 }
 
 .side img {
@@ -58,7 +55,7 @@ body {
   object-fit: cover;
 }
 
-/* back of paper */
+/* back page */
 .back {
   transform: rotateY(180deg);
   background: #fffdf8;
@@ -71,8 +68,8 @@ body {
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(0,0,0,0.12),
-    transparent 45%
+    rgba(0,0,0,.18),
+    transparent 40%
   );
   pointer-events: none;
 }
@@ -81,14 +78,14 @@ body {
   transform: rotateY(-180deg);
 }
 
-/* ---------- Hint ---------- */
+/* ===== Hint ===== */
 .hint {
   position: absolute;
-  bottom: -60px;
+  bottom: -46px;
   width: 100%;
   text-align: center;
-  font-size: 0.9em;
-  opacity: 0.7;
+  font-size: 0.85em;
+  opacity: 0.65;
   animation: float 2s infinite;
 }
 
@@ -97,7 +94,7 @@ body {
   50% { transform: translateY(6px); }
 }
 
-/* ---------- Intro ---------- */
+/* ===== Intro ===== */
 .intro {
   position: fixed;
   inset: 0;
@@ -136,49 +133,54 @@ body {
 <!-- Book -->
 <div class="book" id="book">
 
-  <!-- Page 1 -->
   <div class="page">
     <div class="side front"><img src="img1.jpg"></div>
     <div class="side back"><img src="img2.jpg"></div>
   </div>
 
-  <!-- Page 2 -->
   <div class="page">
     <div class="side front"><img src="img3.jpg"></div>
     <div class="side back"><img src="img4.jpg"></div>
   </div>
 
-  <!-- Page 3 -->
   <div class="page">
     <div class="side front"><img src="img5.jpg"></div>
     <div class="side back"><img src="img6.jpg"></div>
   </div>
 
-  <!-- Page 4 -->
   <div class="page">
     <div class="side front"><img src="img7.jpg"></div>
     <div class="side back"><img src="img8.jpg"></div>
   </div>
 
-  <div class="hint">แตะเพื่อเปิดหน้าถัดไป</div>
+  <div class="hint">แตะเพื่อพลิกหน้า 💕</div>
 </div>
+
+<!-- Sound -->
+<audio id="pageSound" src="sound/page.wav" preload="auto"></audio>
 
 <script>
 const pages = document.querySelectorAll('.page');
+const book = document.getElementById('book');
+const sound = document.getElementById('pageSound');
 let current = 0;
 
-/* ตั้งลำดับชั้นเริ่มต้น */
-pages.forEach((page, index) => {
-  page.style.zIndex = pages.length - index;
+/* จัดลำดับกระดาษ */
+pages.forEach((page, i) => {
+  page.style.zIndex = pages.length - i;
 });
 
 /* คลิกเพื่อพลิก */
-document.getElementById('book').addEventListener('click', () => {
-  if (current < pages.length) {
-    pages[current].classList.add('flipped');
-    pages[current].style.zIndex = current;
-    current++;
-  }
+book.addEventListener('click', () => {
+  if (current >= pages.length) return;
+
+  // เล่นเสียง (รองรับมือถือ)
+  sound.currentTime = 0;
+  sound.play();
+
+  pages[current].classList.add('flipped');
+  pages[current].style.zIndex = current;
+  current++;
 });
 </script>
 

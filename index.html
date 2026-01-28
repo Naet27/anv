@@ -1,115 +1,198 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>ครบรอบ 3 เดือน ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body{margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4);display:flex;justify-content:center;align-items:center;height:100vh}
-    .card{background:#fff;border-radius:24px;padding:36px;width:360px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,.18)}
-    h1{color:#ff5e78;margin-bottom:6px}
-    p{color:#555;line-height:1.7}
-    .heart{font-size:46px;animation:beat 1.4s infinite}
-    @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+<meta charset="UTF-8" />
+<title>Our Little Book 💕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
 
-    .surprise-btn{margin-top:22px;padding:14px 28px;border:none;border-radius:999px;background:linear-gradient(135deg,#ff758c,#ff9a9e);color:#fff;font-size:16px;cursor:pointer;box-shadow:0 8px 20px rgba(255,94,120,.45)}
-    .surprise-btn:active{transform:scale(.96)}
+<style>
+* { box-sizing: border-box; }
 
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:.35s}
-    .overlay.show{opacity:1;pointer-events:auto}
-    .keypad{background:#fff;border-radius:24px;padding:22px;width:260px;text-align:center;transform:translateY(40px) scale(.9);transition:.35s}
-    .overlay.show .keypad{transform:none}
+body {
+  margin: 0;
+  font-family: 'Prompt', sans-serif;
+  background: linear-gradient(135deg, #ffe4ec, #fff0f5);
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-    .display{background:#fff0f3;padding:12px;border-radius:14px;font-size:22px;letter-spacing:8px;margin-bottom:14px}
-    .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .keys button{padding:14px 0;font-size:18px;border:none;border-radius:14px;background:#ffd1da;cursor:pointer}
-    .keys button:active{transform:scale(.9)}
+/* ---------- Book (Responsive) ---------- */
+.book {
+  width: clamp(260px, 85vw, 380px);
+  aspect-ratio: 3 / 4.4;
+  perspective: 2000px;
+  position: relative;
+}
 
-    .footer{margin-top:18px;font-size:13px;color:#aaa}
-  </style>
+/* ---------- Page ---------- */
+.page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1.1s cubic-bezier(.25,.8,.25,1);
+  border-radius: clamp(14px, 3vw, 18px);
+}
+
+/* ---------- Paper sides ---------- */
+.side {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: inherit;
+  background: #fff;
+  box-shadow: 0 clamp(10px, 4vw, 18px)
+              clamp(18px, 8vw, 35px)
+              rgba(0,0,0,.18);
+}
+
+.side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* back side */
+.back {
+  transform: rotateY(180deg);
+  background: #fffdf8;
+}
+
+/* spine shadow */
+.side::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.12),
+    transparent 45%
+  );
+  pointer-events: none;
+}
+
+.page.flipped {
+  transform: rotateY(-180deg);
+}
+
+/* ---------- Hint ---------- */
+.hint {
+  position: absolute;
+  bottom: clamp(-50px, -8vw, -60px);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+  opacity: 0.7;
+  animation: float 2s infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ---------- Intro ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: introFade 1.8s ease forwards;
+}
+
+.intro span {
+  font-size: clamp(2.5rem, 10vw, 3.2rem);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes introFade {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Landscape phones ---------- */
+@media (orientation: landscape) and (max-height: 500px) {
+  .book {
+    width: clamp(300px, 60vw, 420px);
+    aspect-ratio: 4 / 3;
+  }
+}
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <div class="heart">❤️</div>
-    <h1>ครบรอบ 3 เดือน</h1>
-    <p>ขอบคุณที่เข้ามาเป็นความสบายใจของเรา<br>ทุกวันที่มีเธอมันพิเศษเสมอ 💕</p>
-    <button id="openBtn" type="button" class="surprise-btn">กดดูเซอร์ไพรส์ 💝</button>
-    <div class="footer">Happy 3 Months Anniversary</div>
+<!-- Intro -->
+<div class="intro"><span>📖</span></div>
+
+<!-- Book -->
+<div class="book" id="book">
+
+  <div class="page">
+    <div class="side front"><img src="img1.jpg"></div>
+    <div class="side back"><img src="img2.jpg"></div>
   </div>
 
-  <div id="overlay" class="overlay">
-    <div class="keypad">
-      <div id="display" class="display">••••</div>
-      <div class="keys">
-        <button type="button" data-num="1">1</button>
-        <button type="button" data-num="2">2</button>
-        <button type="button" data-num="3">3</button>
-        <button type="button" data-num="4">4</button>
-        <button type="button" data-num="5">5</button>
-        <button type="button" data-num="6">6</button>
-        <button type="button" data-num="7">7</button>
-        <button type="button" data-num="8">8</button>
-        <button type="button" data-num="9">9</button>
-        <button type="button" id="clear">⌫</button>
-        <button type="button" data-num="0">0</button>
-        <button type="button" id="ok">OK</button>
-      </div>
-    </div>
+  <div class="page">
+    <div class="side front"><img src="img3.jpg"></div>
+    <div class="side back"><img src="img4.jpg"></div>
   </div>
 
-  <script>
-    // ===== CONFIG =====
-    const correctPassword = '0909'; // เปลี่ยนรหัสตรงนี้
-    const targetPage = 'surprise.html'; // ต้องมีไฟล์นี้อยู่จริง
+  <div class="page">
+    <div class="side front"><img src="img5.jpg"></div>
+    <div class="side back"><img src="img6.jpg"></div>
+  </div>
 
-    // ===== STATE =====
-    let inputCode = '';
+  <div class="page">
+    <div class="side front"><img src="img7.jpg"></div>
+    <div class="side back"><img src="img8.jpg"></div>
+  </div>
 
-    // ===== ELEMENTS =====
-    const overlay = document.getElementById('overlay');
-    const display = document.getElementById('display');
+  <div class="hint">แตะเพื่อเปิดหน้าถัดไป</div>
+</div>
 
-    // ===== OPEN =====
-    document.getElementById('openBtn').addEventListener('click', () => {
-      overlay.classList.add('show');
-      inputCode = '';
-      updateDisplay();
-    });
+<!-- Page flip sound -->
+<audio id="pageSound" src="page.mp3" preload="auto"></audio>
 
-    // ===== KEYS =====
-    document.querySelectorAll('[data-num]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (inputCode.length < 4) {
-          inputCode += btn.dataset.num;
-          updateDisplay();
-        }
-      });
-    });
+<script>
+const pages = document.querySelectorAll('.page');
+const sound = document.getElementById('pageSound');
+let current = 0;
 
-    document.getElementById('clear').addEventListener('click', () => {
-      inputCode = inputCode.slice(0, -1);
-      updateDisplay();
-    });
+/* initial stack */
+pages.forEach((page, index) => {
+  page.style.zIndex = pages.length - index;
+});
 
-    document.getElementById('ok').addEventListener('click', () => {
-      if (inputCode === correctPassword) {
-        window.location.href = targetPage;
-      } else {
-        alert('รหัสไม่ถูกนะ ลองใหม่อีกครั้ง 🥺');
-        inputCode = '';
-        updateDisplay();
-      }
-    });
+/* flip with sound */
+document.getElementById('book').addEventListener('click', () => {
+  if (current < pages.length) {
 
-    // ===== HELPERS =====
-    function updateDisplay(){
-      display.textContent = '•'.repeat(inputCode.length || 4);
-    }
+    sound.currentTime = 0;
+    sound.play().catch(() => {});
 
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) overlay.classList.remove('show');
-    });
-  </script>
+    pages[current].classList.add('flipped');
+    pages[current].style.zIndex = current;
+    current++;
+  }
+});
+</script>
+
 </body>
 </html>
